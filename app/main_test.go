@@ -2,11 +2,11 @@ package trivette_test
 
 import (
 	"encoding/json"
-	"fmt"
+	"io/ioutil"
 	"os"
 	"testing"
 
-	"github.com/elkorn/trivette"
+	"github.com/elkorn/trivette/app"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -20,18 +20,12 @@ func writeDummyCredentials() {
 		Token: "dummyToken",
 	}
 
-	file, err := os.OpenFile(dummyPath, os.O_CREATE|os.O_RDWR, 555)
-	if nil != err {
-		panic(err)
-	}
-
 	json, err := json.Marshal(credentials)
 	if nil != err {
 		panic(err)
 	}
 
-	fmt.Println(json)
-	_, err = file.Write(json)
+	err = ioutil.WriteFile(dummyPath, json, 777)
 	if nil != err {
 		panic(err)
 	}
