@@ -18,8 +18,6 @@ func printTodaysEvents(events []github.Event) {
 	now := time.Now()
 	now = getDate(now)
 	for _, event := range events {
-		fmt.Println(getDate(*(event.CreatedAt)).String())
-		fmt.Println(getDate(now).String())
 		if getDate(*(event.CreatedAt)).Equal(getDate(now)) {
 			fmt.Printf("[%v] %v @%v\n", *(event.Type), *(event.Repo.Name))
 		}
@@ -38,6 +36,5 @@ func main() {
 		panic(err)
 	}
 
-	fmt.Println(events[0].CreatedAt.String())
 	printTodaysEvents(events)
 }
